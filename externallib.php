@@ -233,6 +233,7 @@ class mooges extends external_api
     /**
      * Metodo que se encargara de volver algunas estadistricas de moodle
      * 
+     * 
      * @return array
      */
     public function get_stadistic()
@@ -258,31 +259,27 @@ class mooges extends external_api
         );
         $totalCohorts = $DB->get_records_sql("SELECT id FROM {cohort}");
         $totalCourses = $DB->get_records_sql("SELECT id FROM {course} where visible = true");
+        $gradeFoundCounter = 0;
 
-        // $totalGrades = 0;
-        // $courseGrades = [];
+        foreach ($totalCourses as $course) {
 
-        // foreach ($totalCourses as $course) {
+            $grades = grade_get_course_grades($course->id);
 
-        //     //obtener usuarios del curso
-        //     $users =  get_enrolled_users(context_course::instance($course->id));
-        //     $grade = grade_get_course_grades(context_course::instance($course->id), array_keys($users));
-        //     array_push($courseGrades, $grade);
-        // }
+            foreach ($grades as $grade => $item) {
 
-        // foreach ($courseGrades as $grade) {
-        //     $totalGrades +=$item->grades[$userid] => $usercoursegrade;
-        // }
+                if (!strcmp($item->str_grade, '-') == 0) {
 
-        // var_dump($courseGrades);
-
+                    $gradeFoundCounter++;
+                }
+            }
+        }
 
         return [
             'total_users' => count($totalUsers),
             'total_access' => count($totalAccess),
             'total_cohorts' => count($totalCohorts),
             'total_courses' => count($totalCourses),
-            // 'total_grades' => 1
+            'total_grades' => $gradeFoundCounter
 
         ];
     }
@@ -299,7 +296,7 @@ class mooges extends external_api
             'total_access' => new external_value(PARAM_INT, 'Total access'),
             'total_cohorts' => new external_value(PARAM_INT, 'Total cohorts'),
             'total_courses' => new external_value(PARAM_INT, 'Total courses'),
-            // 'total_grades' => new external_value(PARAM_INT, 'Total grades'),
+            'total_grades' => new external_value(PARAM_INT, 'Total grades'),
         ]);
     }
 
