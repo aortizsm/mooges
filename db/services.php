@@ -18,7 +18,7 @@ defined('MOODLE_INTERNAL') || die();
  */
 
 $functions = [
-    'mooges_get_category' => [
+    'mooges_get_category_from_course' => [
         'classname' => 'mooges',
         'methodname' => 'get_category_from_course',
         'classpath' => 'local/mooges/externallib.php',
@@ -42,17 +42,17 @@ $functions = [
         'capabilities' => 'moodle/category:manage',
         'type' => 'read',
     ],
-    'mooges_get_users_id' => [
+    'mooges_get_users' => [
         'classname' => 'mooges',
-        'methodname' => 'get_users_id',
+        'methodname' => 'get_users',
         'classpath' => 'local/mooges/externallib.php',
         'description' => 'Get all users id',
         'capabilities' => 'moodle/user:editprofile',
         'type' => 'read',
     ],
-    'mooges_get_stadistic' => [
+    'mooges_get_stadistics' => [
         'classname' => 'mooges',
-        'methodname' => 'get_stadistic',
+        'methodname' => 'get_stadistics',
         'classpath' => 'local/mooges/externallib.php',
         'description' => 'Get stadistics',
         'capabilities' => 'user:editprofile',
@@ -79,11 +79,11 @@ $functions = [
 $services = [
     'MooGes API' => [
         'functions' => [
-            'mooges_get_category',
+            'mooges_get_category_from_course',
             'mooges_get_roleid_by_shortname',
             'mooges_get_category_by_idnumber',
             'mooges_get_users_id',
-            'mooges_get_stadistic',
+            'mooges_get_stadistics',
             'mooges_get_grades_by_userid',
             'mooges_get_badges_by_user_id'
         ],

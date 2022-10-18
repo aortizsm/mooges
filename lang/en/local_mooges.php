@@ -15,4 +15,4 @@
   along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$string['pluginname'] = 'MooGes API';
+$string['pluginname'] = 'MooGes Plugin';

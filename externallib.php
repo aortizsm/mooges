@@ -85,7 +85,6 @@ class mooges extends external_api
     {
         global $DB;
 
-        //Parameter validation
         $params = self::validate_parameters(self::get_roleid_by_shortname_parameters(), ['shortname' => $shortname]);
 
         $context = context_system::instance();
@@ -161,7 +160,7 @@ class mooges extends external_api
      *
      * @return array
      */
-    public static function get_users_id()
+    public static function get_users()
     {
         global $DB;
 
@@ -183,14 +182,12 @@ class mooges extends external_api
         return $users;
     }
 
-    public static function get_users_id_parameters()
+    public static function get_users_parameters()
     {
-        return new external_function_parameters([
-            // 'idnumber' => new external_value(PARAM_TEXT, 'Idnumber from category')
-        ]);
+        return new external_function_parameters([]);
     }
 
-    public static function get_users_id_returns()
+    public static function get_users_returns()
     {
         return new external_multiple_structure(
 
@@ -233,10 +230,9 @@ class mooges extends external_api
     /**
      * Metodo que se encargara de volver algunas estadistricas de moodle
      * 
-     * 
      * @return array
      */
-    public function get_stadistic()
+    public function get_stadistics()
     {
         global $DB;
 
@@ -280,16 +276,15 @@ class mooges extends external_api
             'total_cohorts' => count($totalCohorts),
             'total_courses' => count($totalCourses),
             'total_grades' => $gradeFoundCounter
-
         ];
     }
 
-    public static function get_stadistic_parameters()
+    public static function get_stadistics_parameters()
     {
         return new external_function_parameters([]);
     }
 
-    public static function get_stadistic_returns()
+    public static function get_stadistics_returns()
     {
         return new external_single_structure([
             'total_users' => new external_value(PARAM_INT, 'Total users'),
@@ -309,7 +304,7 @@ class mooges extends external_api
      * @param int $userid
      * @return array
      */
-    public function get_grades_by_userid($userid)
+    public static function get_grades_by_userid($userid)
     {
         global $DB;
 
@@ -343,14 +338,14 @@ class mooges extends external_api
         return $grades;
     }
 
-    public function get_grades_by_userid_parameters()
+    public static function get_grades_by_userid_parameters()
     {
         return new external_function_parameters([
             'userid' => new external_value(PARAM_INT, 'Moodle user id')
         ]);
     }
 
-    public function get_grades_by_userid_returns()
+    public static function get_grades_by_userid_returns()
     {
         return new external_multiple_structure(
             new external_single_structure([
@@ -366,7 +361,7 @@ class mooges extends external_api
      * @param int $userid
      * @return array
      */
-    public function get_badges_by_user_id($userid)
+    public static function get_badges_by_user_id($userid)
     {
         global $DB;
 
@@ -394,14 +389,14 @@ class mooges extends external_api
         return $badgesArray;
     }
 
-    public function get_badges_by_user_id_parameters()
+    public static function get_badges_by_user_id_parameters()
     {
         return new external_function_parameters([
             'userid' => new external_value(PARAM_INT, 'Moodle user id')
         ]);
     }
 
-    public function get_badges_by_user_id_returns()
+    public static function get_badges_by_user_id_returns()
     {
         return new external_multiple_structure(
             new external_single_structure([
