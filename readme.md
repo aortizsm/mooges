@@ -1,4 +1,6 @@
-## Un plugin que extiende/simplifica algunos métodos apirest de Moodle haciéndolo más simples.  Útil para el desarrollo de orquestadoras de Moodle
+## MooGes Plugin V0.1
+
+Un plugin que extiende/simplifica algunos métodos apirest de Moodle haciéndolo más simples.  Útil para el desarrollo de orquestadoras de Moodle.
 
 Este plugin intenta resolver algunas cosas que no hace el apirest provisto por Moodle, para el caso de algunas instalaciones de Moodle (como por ejemplo: hosting) donde la infraestructura es limitada. Este plugin extiende el API de Moodle creando las siguientes:
 
@@ -7,11 +9,11 @@ Este plugin intenta resolver algunas cosas que no hace el apirest provisto por M
 - mooges_get_category_by_idnumber
 - mooges_get_users
 - mooges_get_stadistics
-- mooges_get_grades_by_userid
-
+- mooges_get_grades_by_user_id
+- mooges_get_badges_by_user_id
 
 # Recomendaciones
-El plugin [https://github.com/llagerlof/MoodleRest] (MoodleRest) desarrollado por [https://github.com/llagerlof] (llagerlof) es muy bueno a la hora de interactuar con Moodle simplificando muchos las cosas.
+El plugin [https://github.com/llagerlof/MoodleRest](MoodleRest) desarrollado por [https://github.com/llagerlof](llagerlof) es muy bueno a la hora de interactuar con Moodle simplificando mucho las cosas.
 
 # MooGes Plugin Instalacion
 Se debe instalar bajo el nombre de "mooges" dentro de la carpeta "local"
