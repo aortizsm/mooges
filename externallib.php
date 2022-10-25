@@ -198,29 +198,16 @@ class mooges extends external_api
                 'lastname' => new external_value(PARAM_TEXT, 'last_name'),
                 'email' => new external_value(PARAM_TEXT, 'email'),
                 'city' => new external_value(PARAM_TEXT, 'city', 'VALUE_OPTIONAL'),
-                //custom fields
-                'profile_field_rut_lider' => new external_value(PARAM_TEXT, 'rut_lider', 'VALUE_OPTIONAL'),
-                'profile_field_nombre_lider' => new external_value(PARAM_TEXT, 'nombre_lider', 'VALUE_OPTIONAL'),
-                'profile_field_rut_jefatura' => new external_value(PARAM_TEXT, 'rut_jefatura', 'VALUE_OPTIONAL'),
-                'profile_field_nombre_jefatura' => new external_value(PARAM_TEXT, 'nombre_jefatura', 'VALUE_OPTIONAL'),
-                'profile_field_cargo' => new external_value(PARAM_TEXT, 'cargo', 'VALUE_OPTIONAL'),
-                'profile_field_zona2' => new external_value(PARAM_TEXT, 'zona2', 'VALUE_OPTIONAL'),
-                'profile_field_gerencia' => new external_value(PARAM_TEXT, 'gerencia', 'VALUE_OPTIONAL'),
-                'profile_field_punto_de_venta' => new external_value(PARAM_TEXT, 'punto de venta', 'VALUE_OPTIONAL'),
-                'profile_field_regional' => new external_value(PARAM_TEXT, 'regional', 'VALUE_OPTIONAL'),
-                'profile_field_tipo_cargo' => new external_value(PARAM_TEXT, 'tipo_cargo', 'VALUE_OPTIONAL'),
-                'profile_field_empresa' => new external_value(PARAM_TEXT, 'empresa', 'VALUE_OPTIONAL'),
-                'profile_field_campana' => new external_value(PARAM_TEXT, 'campana', 'VALUE_OPTIONAL'),
-                'profile_field_estado' => new external_value(PARAM_TEXT, 'estado', 'VALUE_OPTIONAL'),
-                // 'profile_field_mibrillo' => new external_value(PARAM_TEXT, 'mibrillo', 'VALUE_OPTIONAL'),
-                // 'profile_field_midatofreak' => new external_value(PARAM_TEXT, 'midatofreak', 'VALUE_OPTIONAL'),
-                'profile_field_zona' => new external_value(PARAM_TEXT, 'zona', 'VALUE_OPTIONAL'),
+
                 //access
                 'firstaccess' => new external_value(PARAM_TEXT, 'Primer acceso', 'VALUE_OPTIONAL'),
                 'lastaccess' => new external_value(PARAM_TEXT, 'Ultimo acceso', 'VALUE_OPTIONAL'),
                 'lastlogin' => new external_value(PARAM_TEXT, 'Ultimo login', 'VALUE_OPTIONAL'),
                 'currentlogin' => new external_value(PARAM_TEXT, 'Actual login', 'VALUE_OPTIONAL'),
                 'timecreated' => new external_value(PARAM_TEXT, 'fecha de creacion de usuario', 'VALUE_OPTIONAL'),
+
+                //custom fields
+                // 'profile_field_rut_lider' => new external_value(PARAM_TEXT, 'rut_lider', 'VALUE_OPTIONAL'),
 
 
             ])
@@ -304,11 +291,11 @@ class mooges extends external_api
      * @param int $userid
      * @return array
      */
-    public static function get_grades_by_userid($userid)
+    public static function get_grades_by_user_id($userid)
     {
         global $DB;
 
-        $params = self::validate_parameters(self::get_grades_by_userid_parameters(), ['userid' => $userid]);
+        $params = self::validate_parameters(self::get_grades_by_user_id_parameters(), ['userid' => $userid]);
 
         $context = context_system::instance();
         require_capability('moodle/user:editprofile', $context);
@@ -338,14 +325,14 @@ class mooges extends external_api
         return $grades;
     }
 
-    public static function get_grades_by_userid_parameters()
+    public static function get_grades_by_user_id_parameters()
     {
         return new external_function_parameters([
             'userid' => new external_value(PARAM_INT, 'Moodle user id')
         ]);
     }
 
-    public static function get_grades_by_userid_returns()
+    public static function get_grades_by_user_id_returns()
     {
         return new external_multiple_structure(
             new external_single_structure([

@@ -58,9 +58,9 @@ $functions = [
         'capabilities' => 'user:editprofile',
         'type' => 'read',
     ],
-    'mooges_get_grades_by_userid' => [
+    'mooges_get_grades_by_user_id' => [
         'classname' => 'mooges',
-        'methodname' => 'get_grades_by_userid',
+        'methodname' => 'get_grades_by_user_id',
         'classpath' => 'local/mooges/externallib.php',
         'description' => 'Get grades',
         'capabilities' => 'user:editprofile',
@@ -82,9 +82,9 @@ $services = [
             'mooges_get_category_from_course',
             'mooges_get_roleid_by_shortname',
             'mooges_get_category_by_idnumber',
-            'mooges_get_users_id',
+            'mooges_get_users',
             'mooges_get_stadistics',
-            'mooges_get_grades_by_userid',
+            'mooges_get_grades_by_user_id',
             'mooges_get_badges_by_user_id'
         ],
         'restrictedusers' => 1,
