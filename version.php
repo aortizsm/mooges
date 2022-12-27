@@ -17,8 +17,8 @@ defined('MOODLE_INTERNAL') || die;
   along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$plugin->version = 2022092414;
+$plugin->version = 2022092415;
 $plugin->requires = 2018051700;
 $plugin->component = 'local_mooges';
-$plugin->release = '1.4';
+$plugin->release = '1.5';
 $plugin->maturity = MATURITY_STABLE;

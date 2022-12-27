@@ -118,6 +118,7 @@ class mooges extends external_api
      * 
      * @global object $DB
      * @param int $idnumber
+     * @author Alberto Ortiz Acevedo <alberto@develearning.cl>
      * @return array
      */
     public static function get_category_by_idnumber($idnumber)
@@ -158,7 +159,9 @@ class mooges extends external_api
     /**
      * Metodo que obtiene a todos los usuarios activos con sus campos personalizados
      *
+     * @global object $DB
      * @return array
+     * @author Alberto Ortiz Acevedo <alberto@develearning.cl>
      */
     public static function get_users()
     {
@@ -208,8 +211,6 @@ class mooges extends external_api
 
                 //custom fields
                 // 'profile_field_rut_lider' => new external_value(PARAM_TEXT, 'rut_lider', 'VALUE_OPTIONAL'),
-
-
             ])
         );
     }
@@ -217,6 +218,8 @@ class mooges extends external_api
     /**
      * Metodo que se encargara de volver algunas estadistricas de moodle
      * 
+     * @global object $DB
+     * @author Alberto Ortiz Acevedo <alberto@develearning.cl>
      * @return array
      */
     public function get_stadistics()
@@ -251,7 +254,6 @@ class mooges extends external_api
             foreach ($grades as $grade => $item) {
 
                 if (!strcmp($item->str_grade, '-') == 0) {
-
                     $gradeFoundCounter++;
                 }
             }
@@ -289,6 +291,8 @@ class mooges extends external_api
      * Solo devolera los cursos con notas, si no hay nota, no hay registro
      *
      * @param int $userid
+     * @global object $DB
+     * @author Alberto Ortiz Acevedo <alberto@develearning.cl>
      * @return array
      */
     public static function get_grades_by_user_id($userid)
@@ -346,6 +350,7 @@ class mooges extends external_api
      * Metodo que hace más simple consultar las insignias de usuarios
      *
      * @param int $userid
+     * @author Alberto Ortiz Acevedo <alberto@develearning.cl>
      * @return array
      */
     public static function get_badges_by_user_id($userid)
@@ -396,5 +401,74 @@ class mooges extends external_api
                 'visible' => new external_value(PARAM_BOOL, 'visible'),
             ])
         );
+    }
+
+    /**
+     * Metodo que revisa si existe el enrolamiento en base a los parametros
+     * 
+     * Si no encuentra el enroll con el role indicado devolvera false, asi como
+     * tambien, si no existe el role en primera instancia, devolvera false
+     *
+     * @param string $username
+     * @param string $shortname
+     * @param string $role
+     * @author Alberto Ortiz Acevedo <alberto@develearning.cl>
+     * @return boolean
+     */
+    public function is_enrollment_exists($username, $shortname, $role)
+    {
+        global $DB;
+
+        //obtenemos el roleid desde el shortname del role
+        $roleId = $DB->get_record_sql("SELECT id FROM {role} WHERE shortname LIKE :role", ['role' => $role]);
+
+        if (empty($roleId)) {
+            return ['exists' => false];
+        }
+
+        $params = self::validate_parameters(self::is_enrollment_exists_parameters(), [
+            'username' => $username,
+            'shortname' => $shortname,
+            'role' => $roleId->id
+        ]);
+
+        $isEnroll = $DB->count_records_sql(
+            "SELECT count(*)
+            FROM {role_assignments} ra, {user} u, {course} c, {context} cxt
+            WHERE ra.userid = u.id
+            AND ra.contextid = cxt.id
+            AND cxt.contextlevel = 50
+            AND cxt.instanceid = c.id
+            AND u.username LIKE :username
+            AND c.shortname LIKE :shortname
+            AND roleid = :roleid",
+            [
+                'username' => $params['username'],
+                'shortname' => $params['shortname'],
+                'roleid' => $params['role']
+            ]
+        );
+
+        if ($isEnroll > 0) {
+            return ['exists' => true];
+        } else {
+            return ['exists' => false];
+        }
+    }
+
+    public static function is_enrollment_exists_parameters()
+    {
+        return new external_function_parameters([
+            'username' => new external_value(PARAM_TEXT, 'username user'),
+            'shortname' => new external_value(PARAM_TEXT, 'shortname course'),
+            'role' => new external_value(PARAM_TEXT, 'shortname role'),
+        ]);
+    }
+
+    public static function is_enrollment_exists_returns()
+    {
+        return new external_single_structure([
+            'exists' => new external_value(PARAM_BOOL, 'True si existe'),
+        ]);
     }
 }

@@ -74,6 +74,14 @@ $functions = [
         'capabilities' => 'user:editprofile',
         'type' => 'read',
     ],
+    'mooges_is_enrollment_exists' => [
+        'classname' => 'mooges',
+        'methodname' => 'is_enrollment_exists',
+        'classpath' => 'local/mooges/externallib.php',
+        'description' => 'exists enrollment?',
+        'capabilities' => 'moodle/role:manage',
+        'type' => 'read',
+    ],
 ];
 
 $services = [
@@ -85,7 +93,8 @@ $services = [
             'mooges_get_users',
             'mooges_get_stadistics',
             'mooges_get_grades_by_user_id',
-            'mooges_get_badges_by_user_id'
+            'mooges_get_badges_by_user_id',
+            'mooges_is_enrollment_exists'
         ],
         'restrictedusers' => 1,
         'enabled' => 1,
